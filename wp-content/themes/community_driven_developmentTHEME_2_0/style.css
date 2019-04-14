@@ -1,9 +1,9 @@
 /*
-Theme Name: community_driven_development_1_5
+Theme Name: community_driven_development_2_0
 Author: Robert Porter
 Author URI: www.robertjporter.com
-Description: Community driven development 1.5
-Version: 1.5
+Description: Community driven development 2.0
+Version: 2.0
 Credits:
 
 1. Bootstrap
@@ -299,7 +299,7 @@ nav .form-control {
 
 .RJP-Lightback{
 	padding:20px; 
-	background-color:rgba(255,255,255,0.75); 
+	background-color: white; 
 	margin:-15px;
 	color: black;text-align:center;
 }
@@ -365,6 +365,52 @@ nav .form-control {
 .main-content-inner{
 	background-color: rgba(0,0,0,0.95);
 	
+}
+
+/*LATEST RELEASE*/
+.LatestRelease_imagebox{
+	height:220px; 
+	width:100%;
+	background-repeat: no-repeat; 
+	background-size: cover; 
+	background-position: right center; 
+	margin: 0px;
+}
+
+.LatestRelease_whiteback{
+	height:220px; 
+	background-color: white;
+}
+
+.LatestRelease_textbox {
+	text-align: center; 
+	position: absolute; 
+	max-width: 400px; 
+	color:black; 
+	right: 0px
+}
+
+.LatestRelease_fadeBuffer{
+	height:220px; 
+	background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+@media screen and (max-width:768px){
+	.LatestRelease_imagebox{
+		height:440px;
+		background-position: center top 50px ; 
+	}
+	.LatestRelease_textbox {
+		position: relative; 
+		max-width: 400px; 
+		right: auto;
+		margin: auto;
+	}
+	.LatestRelease_fadeBuffer{
+		top:220px;
+		height:50px; 
+		background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+	}
 }
 
 @media screen and (min-width:768px){

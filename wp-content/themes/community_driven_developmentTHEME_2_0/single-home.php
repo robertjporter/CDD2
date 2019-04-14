@@ -29,35 +29,17 @@ while ($query->have_posts()) {
 	//echo '<a href="'.$link.'" >';
 	
 	?>
-	<div class="row featurePreveiw" style="margin:20px;">
-		<a href="<?php echo $link;?>">
-		<div class="col-sm-5 col-xs-12 indexFeatureBase" style="height:220px; ">
-			<h3>
-				<?php echo $title;?>
-			</h3> 
-			<?php echo $excerpt;?>
+	<div class="LatestRelease">
+		<div class="LatestRelease_imagebox row" style="background-image: url(<?php echo $feat_image;?>);">
+			<div class="LatestRelease_whiteback col-sm-5 col-xs-12" >
+				<div class="LatestRelease_textbox">
+					<h3>LATEST RELEASE</h3>
+					It is not known exactly when the text obtained its current standard form; it may have been as late as the 1960s.<br><br>
+					<a href="<?php echo get_post_type_archive_link('indev'); ?>"><button type="button" class="RJP-Lightbtn">SEE FULL RELEASE</button></a>
+				</div>
+			</div>
+			<div class="LatestRelease_fadeBuffer col-sm-2 " ></div>
 		</div>
-		
-		<div class="col-sm-2 hidden-xs" style="height:220px; color: black; background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));">
-			
-		</div>
-		
-		<div class="col-sm-push-5 " style="height:220px; background-image: url(<?php echo $feat_image;?>); background-position: left center; ">
-			
-		</div>
-		
-		<div class="progress">
-		  <div class="progress-bar<?php 
-			if($percentage <=50){echo "-info";}
-			else if($percentage <= 70){echo "-warning";}
-			else if($percentage >= 100){echo "-success";}
-			else {echo "-danger";} ?> " 
-		  role="progressbar" 
-		  style="text-align: center; width: <?php echo $percentage;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >
-			<?php echo floor($percentage);?>%
-		  </div>
-		</div>
-		</a>
 	</div>
 	<?php
     echo "";
