@@ -258,12 +258,21 @@ add_action('login_head', 'my_custom_login');
 		$user_support = $raw_user_support[$user_id];
 		$press_count = $_POST['press_count'];
 		$dev_point_requirement = get_post_meta( $post_id, 'dev-point-requirement', true );
+		$is_history = get_post_meta( $post_id, 'history', true );
 		
-		
-		if($dev_point_requirement < $raw_user_support){
-			add_post_meta($post_id, "supporter_id", $user_id);
-			update_user_meta( $user_id, "user_points", $user_dev_points-1);
-			die();
+		if($is_history === 'N'){
+			if($dev_point_requirement-1 <= $vote_count){
+				add_post_meta($post_id, "supporter_id", $user_id);
+				update_user_meta( $user_id, "user_points", $user_dev_points-1);
+				update_post_meta( $post_id, "history", "Y");
+				die();
+			} elseif ($dev_point_requirement > $vote_count){
+				add_post_meta($post_id, "supporter_id", $user_id);
+				update_user_meta( $user_id, "user_points", $user_dev_points-1);
+				die();
+			} else {
+				die();
+			}
 		} else {
 			die();
 		}

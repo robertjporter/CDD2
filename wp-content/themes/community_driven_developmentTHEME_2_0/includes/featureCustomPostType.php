@@ -286,4 +286,20 @@ function add_history_metabox($post_id)
     }
     return true;
 }
+
+
+function create_feature_history_post_type() {
+	register_post_type( 'feature_history',
+	  array(
+		'labels' => array(
+		  'name' => __( 'Feature Histories' ),
+		  'singular_name' => __( 'Feature History' )
+		),
+		'public' => true,
+		'has_archive' => true,
+	  )
+	);
+  }
+  add_action( 'init', 'create_feature_history_post_type' );
+  
 ?>

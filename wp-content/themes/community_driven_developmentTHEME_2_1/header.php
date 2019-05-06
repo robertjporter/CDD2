@@ -61,8 +61,7 @@
 		
 		<?php if ( is_user_logged_in() ) { 
 			$current_user = wp_get_current_user();?>
-			
-			<li><a href="<?php echo wp_logout_url( $redirect ); ?>"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+			<li><a href="<?php echo wp_logout_url( $redirect ); ?>"><span class="glyphicon glyphicon-log-in"></span> Log Out </a></li>
 		<?php } else { ?>
 			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>/wp-login.php?action=register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			<li><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

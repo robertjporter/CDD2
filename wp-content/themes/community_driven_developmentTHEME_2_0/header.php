@@ -32,7 +32,7 @@
 
 
 <!-- My Navbar -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="myNavbar" style="margin-left:10px;">
       <!-- The WordPress Menu goes here -->
 		<?php wp_nav_menu(
 			array(
@@ -60,9 +60,28 @@
       <ul class="nav navbar-nav navbar-right">
 		
 		<?php if ( is_user_logged_in() ) { 
-			$current_user = wp_get_current_user();?>
+			$current_user = wp_get_current_user();
+			$user_ID = get_current_user_id();
+			$user_dev_points = get_user_meta($user_ID, 'user_points', true);
+			$current_user = wp_get_current_user();
+			$blogtime = current_time( 'mysql' ); 
 			
-			<li><a href="<?php echo wp_logout_url( $redirect ); ?>"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+			?> 
+				<div class="row" style="margin-top:10px;">
+					<div class="col-sm-4">
+						<?php echo '<a href="' , site_url() , '/wp-admin/profile.php" target="_blank">'; ?>
+							<img src="<?php echo esc_url( get_avatar_url( $user_ID ) ); ?>" height="80" width="80"/>
+						</a>
+					</div>
+					<div class="col-sm-8">
+						<?php
+						echo $current_user->display_name . '<br />';
+						echo 'DevPts.  ' . $user_dev_points . '<br />';
+						?>
+					</div>
+				</div>
+
+
 		<?php } else { ?>
 			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>/wp-login.php?action=register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			<li><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -74,7 +93,7 @@
   </div>
 </nav>
 
-
+<div style="height:65px;"></div>
 <div class="main-content">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
 	<div class="container-fluid">

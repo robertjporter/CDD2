@@ -46,7 +46,7 @@ class wpb_widget extends WP_Widget {
 						<?php
 						echo $current_user->display_name . '<br />';
 						echo 'DevPts.  ' . $user_dev_points . '<br />';
-						echo '<a href="' , site_url() , '/wp-admin/profile.php">User settings</a>';
+						echo '<a href="' , site_url() , '/wp-admin/profile.php" target="_blank">User settings</a>';
 						?>
 					</div>
 				</div>

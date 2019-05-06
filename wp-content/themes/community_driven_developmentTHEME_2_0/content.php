@@ -17,7 +17,7 @@
 	<header>
 	
 		<h1 class="page-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
-
+		
 		<?php if ( 'post' == get_post_type() ) : ?>
 		<div class="entry-meta">
 			<?php _tk_posted_on(); ?>
@@ -35,7 +35,7 @@
 		<?php _tk_link_pages(); ?>
 	</div><!-- .entry-content -->
 	<?php endif; ?>
-
+	
 	<footer class="entry-meta">
 		<?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
 			<?php
@@ -47,7 +47,7 @@
 				<?php printf( __( 'Posted in %1$s', '_tk' ), $categories_list ); ?>
 			</span>
 			<?php endif; // End if categories ?>
-
+			
 			<?php
 				/* translators: used between list items, there is a space after the comma */
 				$tags_list = get_the_tag_list( '', __( ', ', '_tk' ) );

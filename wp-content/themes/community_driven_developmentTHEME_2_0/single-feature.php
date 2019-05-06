@@ -5,7 +5,9 @@
 */
 
 get_header();
-
+?>
+	<div style="max-width:1000px; margin:auto; padding:20px; color:black;  background-image: -webkit-linear-gradient(left, #5875c0 0%,#45cdaf 100%);"><h1>Feature awaiting approval</h1></div>
+<?php
 	while ( have_posts() ) : the_post(); 
 		get_template_part( 'content', 'page' ); 
 	endwhile; // end of the loop. 
@@ -19,8 +21,11 @@ $parent_thumbnail_img = wp_get_attachment_image_src($parent_thumb_id, 'featured_
 $parent_stage = get_post_meta($post_id, "dev-Stage", true);
 
 
+?>
+<div class="single_blog_content">
+<?php
 //Show Parent-------------
-?>Parent Feature: <?php
+/*
 if (get_the_title() !== $parent -> post_title){
 	echo "<a href='".$parent->guid."'>".$parent->post_title."<br><img src='" . $parent_thumbnail_img[0] . "' /></a>";
 }
@@ -40,9 +45,11 @@ function get_parent_excess ($post_id,$parent_id){
 	} else {echo "<br>not enough parent votes ";}
 }
 ?><br>(This is a Prerequired Feature) <br><br><?php
+*/
 //get_parent_excess($post_id,$parent_id);
 //DEV VOTING SYSTEM------------------- 
-
+	
+	
 	$user_ID = get_current_user_id();
 	$user_dev_points = get_user_meta($user_ID, 'user_points', true);
 	$post_id = get_the_ID();
@@ -50,6 +57,7 @@ function get_parent_excess ($post_id,$parent_id){
 	$raw_user_support = array_count_values(get_post_meta($post_id, "supporter_id", false));
 	$user_support = $raw_user_support[$user_ID];
 	$total = get_post_meta( $post_id, 'dev-point-requirement', true );
+	$is_history = get_post_meta( $post_id, 'history', true );
 
 	//Just fxing a bug (blank user support wreaks buttons data passing over to AJAX)
 	if (empty($user_support)) {
@@ -61,20 +69,20 @@ function get_parent_excess ($post_id,$parent_id){
 		
 		
 	?>
-	
-	<div class="progress">
+	<p style="text-align: center;">This Feature has <span class='vote_count'><?php echo $vote_count;?></span> Dev-points and needs <?php echo get_post_meta( $post_id, 'dev-point-requirement', true );?> to start development.</p>
+	<div class="progress" style="height:60px;">
 	  <div class="progress-inner progress-bar<?php 
 		if($percentage <=70){echo "-info";}
 		else if($percentage <= 99){echo "-warning";}
 		else if($percentage >= 100){echo "-success";}
 		else {echo "-danger";} ?> " 
 	  role="progressbar" 
-	  style="width: <?php echo $percentage;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+	  style="height:60px; width: <?php echo $percentage;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 		<?php echo floor($percentage); echo "%";?>
 	  </div>
 	</div>
 	
-	<p style="text-align: center;">This Feature has <span class='vote_count'><?php echo $vote_count;?></span> Dev-points and needs <?php echo get_post_meta( $post_id, 'dev-point-requirement', true );?> more to reach it's goal.</p>
+	
 	<br>
 
 	<div class= "devpoints_buttons" style="width:100%; text-align:center;">
@@ -87,6 +95,7 @@ function get_parent_excess ($post_id,$parent_id){
 		data-user_dev_points=<?php echo $user_dev_points; ?> 
 		data-vote_count=<?php echo $vote_count; ?>
 		data-user_support=<?php echo $user_support; ?>
+		data-is_history=<?php echo $is_history; ?>
 		data-total=<?php echo $total; ?>
 		data-press_type="add">
 			Add One of Your Dev-Points!
@@ -100,6 +109,7 @@ function get_parent_excess ($post_id,$parent_id){
 		data-user_dev_points=<?php echo $user_dev_points; ?> 
 		data-vote_count=<?php echo $vote_count; ?>
 		data-user_support=<?php echo $user_support; ?>
+		data-is_history=<?php echo $is_history; ?>
 		data-total=<?php echo $total; ?>
 		data-press_type="add">
 			Add One More Dev-Point.
@@ -113,6 +123,7 @@ function get_parent_excess ($post_id,$parent_id){
 		data-user_dev_points=<?php echo $user_dev_points; ?> 
 		data-vote_count=<?php echo $vote_count; ?>
 		data-user_support=<?php echo $user_support; ?>
+		data-is_history=<?php echo $is_history; ?>
 		data-total=<?php echo $total; ?>
 		data-press_type="remove">
 			Return your <?php echo $user_support; ?> Dev-Points.
@@ -157,6 +168,7 @@ function get_parent_excess ($post_id,$parent_id){
 			user_support = heart.data("user_support");
 			total = heart.data("total");
 			press_type = heart.data("press_type");
+			is_history = heart.data("history");
 			
 			console.log("--NEW PRESS--");
 			console.log("post_id: "+post_id);
@@ -272,5 +284,6 @@ function get_parent_excess ($post_id,$parent_id){
 			
 		})
 	</script>
+</div>
 <?php //get_sidebar(); ?>
 <?php get_footer(); ?>

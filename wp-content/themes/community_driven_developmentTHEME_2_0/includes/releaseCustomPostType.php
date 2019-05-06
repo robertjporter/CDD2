@@ -52,14 +52,11 @@ function dynamic_inner_release_custom_box() {
 
     //get the saved meta as an array
     $indev_feature = get_post_meta($post->ID,'indev_feature',false);
-
     $c = 0;
     if(is_array($indev_feature[0])){
         foreach( $indev_feature[0] as $complete ) {
-            if ( isset( $complete['title'] ) || isset( $complete['complete'] ) ) {
-                printf( '<p> Indev Feature Permalink <input type="text" size="35" name="indev_feature[%1$s][title]" value="%2$s" /><button  class="remove">%4$s</button></p><hr>', $c, $complete['title'], __( 'Remove' ) );
+                printf( '<p> Indev Feature Permalink <input type="text" size="35" name="indev_feature[%1$s][title]" value="%2$s" /><button  class="remove">%4$s</button></p><hr>', $c, $complete['title'], $complete['complete'], __( 'Remove' ) );
                 $c = $c +1;
-            }
         }
     }
 

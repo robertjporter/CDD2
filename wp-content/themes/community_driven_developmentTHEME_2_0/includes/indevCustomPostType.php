@@ -56,7 +56,6 @@ function dynamic_inner_custom_box() {
 
     //get the saved meta as an array
     $objectives = get_post_meta($post->ID,'objectives',false);
-
     $c = 0;
     if(is_array($objectives[0])){
         foreach( $objectives[0] as $complete ) {
@@ -115,7 +114,6 @@ function dynamic_update_inner_custom_box() {
 
     //get the saved meta as an array
     $updates = get_post_meta($post->ID,'updates',false);
-
     $cu = 0;
     if(is_array($updates[0])){
         foreach( $updates[0] as $date ) {

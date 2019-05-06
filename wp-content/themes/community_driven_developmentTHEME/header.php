@@ -61,12 +61,28 @@
 		
 		<?php if ( is_user_logged_in() ) { 
 			$current_user = wp_get_current_user();?>
+			$user_ID = get_current_user_id();
+			$user_dev_points = get_user_meta($user_ID, 'user_points', true);
+			$current_user = wp_get_current_user();
+			$blogtime = current_time( 'mysql' ); 
 			
-			<li><a href="<?php echo wp_logout_url( $redirect ); ?>"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+			?> 
+				<?php get_search_form(); ?> 
+				<div class="row" style="margin-bottom:20px;">
+					<div class="col-sm-4">
+						<img src="<?php echo esc_url( get_avatar_url( $user_ID ) ); ?>" height="80" width="80"/>
+					</div>
+					<div class="col-sm-8">
+						<?php
+						echo $current_user->display_name . '<br />';
+						echo 'DevPts.  ' . $user_dev_points . '<br />';
+						echo '<a href="' , site_url() , '/wp-admin/profile.php" target="_blank">User settings</a>';
+						?>
+					</div>
+				</div>
 		<?php } else { ?>
 			<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>/wp-login.php?action=register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			<li><a href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			
 			
 		<?php } ?>
       </ul>

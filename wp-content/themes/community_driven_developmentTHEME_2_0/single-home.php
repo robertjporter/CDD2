@@ -5,18 +5,16 @@
 */
 
 get_header();
-?><div style="margin:auto;">
+?><div style="margin:auto; background-color:black;">
 <?php the_custom_header_markup(); ?>
 </div>
 
 <div class="RJP-Darkback">
 	<div class="row" style="max-width: 1000px; margin:auto;">
 		
-		<div class="col-sm-6 col-xs-12" style="max-width: 500px; margin:auto; padding: 20px; text-align: center">
+		<div class="col-sm-6 col-xs-12" style="max-width: 500px; margin:auto; padding: 40px; text-align: center">
 			<?php
-				while ( have_posts() ) : the_post(); 
-					get_template_part( 'content', 'page' ); 
-				endwhile; // end of the loop. 
+				echo get_post_field('post_content', $post_id);
 			?>
 		</div>
 
@@ -49,7 +47,7 @@ while ($query->have_posts()) {
 		<div class="LatestRelease_imagebox row" style="background-image: url(<?php echo $feat_image;?>);">
 			<div class="LatestRelease_whiteback col-sm-5 col-xs-12" >
 				<div class="LatestRelease_textbox">
-					<h3><?php echo $title; ?></h3>
+					<h3 style="padding:10px 0px; text-align:center; color:black; text-align:center;  background-image: -webkit-linear-gradient(left, #9d814c 0%,#cf4f47 100%);"><?php echo $title; ?></h3>
 					<?php echo $excerpt; ?><br><br>
 					<a href="<?php echo $link; ?>"><button type="button" class="RJP-Lightbtn"><b>ABOUT THE RELEASE</b></button></a>
 				</div>
@@ -67,22 +65,26 @@ wp_reset_query();
 
 <!---------------------- START INDEV ---------------------->
 <div class="RJP-Lightback">
+<br>
+<div class="features_container">
+	<h2 style="padding:10px 0px; text-align:center; color:black; text-align:center;  background-image: -webkit-linear-gradient(left, #6a9d6e 0%,#a9cc41 100%);">CURRENTLY IN DEVELOPMENT</h2>
 	<br>
-<h2 style="text-align:center;">CURRENTLY IN DEVELOPMENT</h2>
+	<p>Follow the development process with day by day updates to core features. Open and transparent</p>
+</div>
 <br>
 
 <?php
 $query = new WP_Query(array(
-    'post_type' => 'indev',
-    'post_status' => 'publish',
-		'posts_per_page' => 3,
-		'orderby' => 'rand',
-		'meta_query'     => [
-			[
-					'key'      => 'completeIndev',
-					'compare' => 'NOT EXISTS',
-					'value'    => '',
-			]
+	'post_type' => 'indev',
+	'post_status' => 'publish',
+	'posts_per_page' => 3,
+	'orderby' => 'rand',
+	'meta_query'     => [
+		[
+				'key'      => 'completeIndev',
+				'compare' => 'NOT EXISTS',
+				'value'    => '',
+		]
 	],
 ));
 ?>
@@ -109,7 +111,7 @@ while ($query->have_posts()) {
 		?>
 		<div class="indev_info">
 			<?php
-			echo "<div class='indev_title'><h4>".$title."</h4></div><br>";
+			echo "<br><div class='indev_title'><h4>".$title."</h4></div>";
 			if(is_array($objectives[0])){
 				foreach( $objectives[0] as $complete ) {
 					
@@ -131,7 +133,7 @@ while ($query->have_posts()) {
 			?>
 			
 		</div>
-		<div style="position:absolute; bottom:-20px; width: 100%;">
+		<div style="position:absolute; top:0px; width: 100%;">
 			<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $objectives_percentage;?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $objectives_percentage;?>%">
 					<span class="sr-only"></span>
@@ -153,7 +155,8 @@ wp_reset_query();
 <!---------------------- START FEATURES ---------------------->
 <div class="RJP-Darkback">
 	<div class="features_container">
-		<h2 style="text-align:center;">COMMUNITY DRIVEN DEVELOPMENT</h2>
+		<h2 style="padding:10px 0px; color:black; text-align:center;  background-image: -webkit-linear-gradient(left, #5875c0 0%,#45cdaf 100%);">FEATURES AWAITING YOUR APPROVAL</h2>
+		<br>
 		<p>
 		More than just a game developers website. 
 		Community Driven Development is part an open, living, design document.
@@ -230,7 +233,7 @@ wp_reset_query();
 </div>
 <div class="RJP-Lightback">
 	<div class="news_container">
-		<h2 style="text-align:center;">LATEST NEWS!</h2>
+		<h2 style="text-align:center;">LATEST NEWS</h2>
 		<br>
 
 		<?php query_posts( array(
