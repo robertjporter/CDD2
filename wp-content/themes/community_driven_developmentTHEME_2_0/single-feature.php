@@ -87,7 +87,7 @@ function get_parent_excess ($post_id,$parent_id){
 
 	<div class= "devpoints_buttons" style="width:100%; text-align:center;">
 	<?php
-	if($user_ID){?>
+	if($user_ID && $is_history === "N"){?>
 		<button id="dev-vote-add-one" type='button' 
 		class='dev-vote btn btn-success <?php if ($user_support > 0){echo ' hidden';}?>'
 		data-post_id=<?php echo $post_id; ?> 
@@ -137,14 +137,18 @@ function get_parent_excess ($post_id,$parent_id){
 	</div>
 		<br>
 	<?php 
+	
+	
+	} elseif ($is_history === "Y") { 
+		?> <button type='button' class='btn'>This Feature has all the dev-points it needs and we will be starting work on it as soon as we can.</button><?php
+	} else{ 
+	echo "Please Login or Signup to vote.";
+	} 
+	
 	//Comments
 		// If comments are open or we have at least one comment, load up the comment template
 		if ( comments_open() || '0' != get_comments_number() )
-			comments_template();
-	
-	} else { ?>
-		"Please Login or Signup to vote."
-	<?php } ?>
+			comments_template();?>
 
 	<script type="text/javascript">
 	
@@ -168,9 +172,11 @@ function get_parent_excess ($post_id,$parent_id){
 			user_support = heart.data("user_support");
 			total = heart.data("total");
 			press_type = heart.data("press_type");
-			is_history = heart.data("history");
+			is_history = heart.data("is_history");
+			
 			
 			console.log("--NEW PRESS--");
+			console.log("is_history: "+is_history);
 			console.log("post_id: "+post_id);
 			console.log("user_id: "+user_id);
 			console.log("user_dev_points: "+user_dev_points);
@@ -231,9 +237,17 @@ function get_parent_excess ($post_id,$parent_id){
 							
 							//percentage = current_percentage+(single_vote_percentage*press_count);
 							jQuery('.progress-inner').text(percentage+'%');
+							jQuery('.progress-inner').css("width", percentage+'%');
 
 							console.log("add_post_meta post_id:"+post_id+" key:suporter_id meta:"+user_id);
 							console.log("update_user_meta user_id:"+user_id+" key:user_points meta:"+(user_dev_points-press_count));
+							
+							if ((vote_count+press_count)>=total){
+								console.log("HISTORY");
+								jQuery( "#dev-vote-add-one" ).addClass( "hidden" );
+								jQuery( "#dev-vote-add-another" ).addClass( "hidden" );
+								jQuery( "#dev-vote-remove" ).addClass( "hidden" );
+							}
 						},
 						error: function(data){
 							console.log("ajax send-off to add FAILED");
