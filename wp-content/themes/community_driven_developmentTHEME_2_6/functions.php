@@ -297,7 +297,7 @@ add_action('login_head', 'my_custom_login');
     //Save points extra registration user meta.
     add_action( 'user_register', 'myplugin_user_register' );
     function myplugin_user_register( $user_id ) {
-        update_user_meta( $user_id, 'user_points', 5 );
+        update_user_meta( $user_id, 'user_points', 0 );
     }
 	
 	//Add points to admin pannel

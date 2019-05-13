@@ -1,0 +1,43 @@
+body{
+	color:white;
+	background-color: black;
+	display:inline;
+}
+
+
+
+.options{
+	width: 200px;
+	display: grid;
+	grid-gap: 5px 5px;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	padding: 10px;
+	margin: 0px;
+	border: 0px;
+}
+
+.output{
+	width: 200px;
+	display: grid;
+	grid-gap: 5px 5px;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	padding: 10px;
+	margin: 0px;
+	border: 0px;
+}
+
+.item{
+	background-color: darkgrey;
+	width: 64px;
+	height: 64px;
+}
+
+.result{
+	background-color: darkgrey;
+	width: 128px;
+	height: 64px;
+	grid-column-start: 7;
+	grid-column-end: 9;
+}
+
+
