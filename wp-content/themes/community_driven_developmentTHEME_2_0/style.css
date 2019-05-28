@@ -38,6 +38,7 @@ body {
 
 p{
 	margin: 0px;
+	padding-bottom:10px;
 }
 
 /* Alignment */
@@ -357,8 +358,17 @@ nav .form-control {
 .RJP-Lightback{
 	padding: 0px;
 	margin:0px;
-	background-color: white; 
+	background-color: black; 
 	color: black;text-align:center;
+
+	max-width:1000px;
+	padding: 40px;
+	margin:auto;
+	background-color:white;
+	color:black;
+	line-height: 1.85em;
+	font-family: Georgia, serif;
+	font-size: 1.15em;
 }
 
 .RJP-Darkback{
@@ -366,6 +376,15 @@ nav .form-control {
 	background-color: rgb(34, 34, 34); 
 	margin:0px;
 	color: white;text-align:center;
+
+	max-width:1000px;
+	padding: 40px;
+	margin:auto;
+	background-color:white;
+	color:black;
+	line-height: 1.85em;
+	font-family: Georgia, serif;
+	font-size: 1.15em;
 }
 
 .progress {

@@ -67,18 +67,21 @@
 			$blogtime = current_time( 'mysql' ); 
 			
 			?> 
-				<div class="row" style="margin-top:10px;">
-					<div class="col-sm-4">
-						<?php echo '<a href="' , site_url() , '/wp-admin/profile.php" target="_blank">'; ?>
+				<div class="row" style="margin-top:5px;">
+					<?php echo '<a href="' , site_url() , '/wp-admin/profile.php" style="padding:0px;" type="button" class="btn btn-default" >'; ?>
+						<div class="col-sm-4" style="padding:0px; height:42px; width:42px;">
 							<img src="<?php echo esc_url( get_avatar_url( $user_ID ) ); ?>" height="80" width="80"/>
-						</a>
-					</div>
-					<div class="col-sm-8">
-						<?php
-						echo $current_user->display_name . '<br />';
-						echo 'DevPts.  ' . $user_dev_points . '<br />';
-						?>
-					</div>
+						</div>
+						<div class="col-sm-8" style="text-align:left; color:black;">
+							<?php
+							echo $current_user->display_name . '<br />';
+							echo 'DevPts.  ' . $user_dev_points . '<br />';
+							?>
+						</div>
+					</a>
+					<?php echo '<a href="' , site_url() , '/wp-login.php?action=logout" style="text-align: center; font-weight:bold; height:42px; padding-width:10px;" type="button" class="btn btn-default" >'; ?>
+						Log Out
+					</a>
 				</div>
 
 
@@ -93,7 +96,7 @@
   </div>
 </nav>
 
-<div style="height:65px;"></div>
+<div style="height:50px;"></div>
 <div class="main-content">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
 	<div class="container-fluid">

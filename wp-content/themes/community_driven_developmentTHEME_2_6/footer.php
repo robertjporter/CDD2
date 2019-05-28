@@ -16,7 +16,7 @@
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
 	<div class="container">
 		<div class="row">
-			<div class="site-footer-inner col-sm-12">
+			<div class="site-footer-inner col-sm-12" style="max-width:1000px;">
 
 				<div class="site-info">
 					<?php 

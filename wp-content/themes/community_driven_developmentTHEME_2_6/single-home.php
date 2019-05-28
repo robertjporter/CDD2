@@ -5,7 +5,8 @@
 */
 
 get_header();
-?><div style="margin:auto; background-color:black;">
+?><div style="margin:auto; background-color:black; max-width:1000px;
+margin:auto;">
 <?php the_custom_header_markup(); ?>
 </div>
 
@@ -19,7 +20,11 @@ get_header();
 		</div>
 
 		<div class="col-sm-6 col-xs-12" style="padding:40px 0;">
-				<iframe src="<?php echo get_theme_mod( 'home_youtube_link' ); ?>" width="640" height="280" frameborder="0"></iframe>
+				<?php 
+					$getYoutubeHomeLink = get_theme_mod( 'home_youtube_link' );
+					$YoutubeHomeLink =  str_replace('watch?v=', 'embed/',$getYoutubeHomeLink);
+				?>
+				<iframe src="<?php echo $YoutubeHomeLink; ?>" width="640" height="280" frameborder="0"></iframe>
 		</div>
 	</div>
 
@@ -78,7 +83,7 @@ $query = new WP_Query(array(
 	'post_type' => 'indev',
 	'post_status' => 'publish',
 	'posts_per_page' => 6,
-	'orderby' => 'rand',
+	'orderby' => 'DESC',
 	'meta_query'     => [
 		[
 				'key'      => 'completeIndev',
@@ -181,10 +186,10 @@ wp_reset_query();
 		</p>
 		<?php
 		$query = new WP_Query(array(
-				'post_type' => 'feature',
-				'post_status' => 'publish',
+			'post_type' => 'feature',
+			'post_status' => 'publish',
 			'posts_per_page' => 6,
-			'orderby' => 'rand'
+			'orderby' => 'DESC'
 		));
 
 		while ($query->have_posts()) {

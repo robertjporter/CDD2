@@ -45,6 +45,7 @@ function _tk_setup() {
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	*/
 	add_theme_support( 'post-thumbnails' );
+	set_post_thumbnail_size( 1000, 400 );
 
 	/**
 	 * Enable support for Post Formats
@@ -297,7 +298,7 @@ add_action('login_head', 'my_custom_login');
     //Save points extra registration user meta.
     add_action( 'user_register', 'myplugin_user_register' );
     function myplugin_user_register( $user_id ) {
-        update_user_meta( $user_id, 'user_points', 0 );
+        update_user_meta( $user_id, 'user_points', 5 );
     }
 	
 	//Add points to admin pannel
@@ -390,6 +391,81 @@ function admin_default_page() {
   }
   
   add_filter('login_redirect', 'admin_default_page');
+//REGISTRATION FIX--------------------------------------------------------------
+function RJP_new_item_register_form() {
+
+	$password1 = ( ! empty( $_POST['password1'] ) ) ? trim( $_POST['password1'] ) : '';
+	$password2 = ( ! empty( $_POST['password2'] ) ) ? trim( $_POST['password2'] ) : '';
+	?>
+	<p>
+		<label for="password1"><?php _e( 'Password:') ?>
+		<input type="password" name="password1" id="password1" class="input" value="<?php echo esc_attr( wp_unslash( $password1 ) ); ?>" size="25" /></label><br>
+		<label for="password2"><?php _e( 'Confirm Password:') ?>
+		<input type="password" name="password2" id="password2" class="input" value="<?php echo esc_attr( wp_unslash( $password2 ) ); ?>" size="25" /></label><br>
+	</p>
+	<?php
+
+}
+add_action('register_form', 'RJP_new_item_register_form');
+//---
+
+function RJP_register_form_errors( $errors, $sanitized_user_login, $user_email ) {
+	if ( empty( $_POST['password1'] ) || ! empty( $_POST['password1'] ) && trim( $_POST['password1'] ) == '' ) {
+		$errors->add( 'password1_error', __( '<strong>ERROR</strong>: Password field is required.' ) );
+	}
+	if ( empty( $_POST['password2'] ) || ! empty( $_POST['password2'] ) && trim( $_POST['password2'] ) == '' ) {
+		$errors->add( 'password2_error', __( '<strong>ERROR</strong>: Confirm Password field is required.' ) );
+	}
+	if ( $_POST['password1'] != $_POST['password2'] ) {
+		$errors->add( 'password12_error', __( '<strong>ERROR</strong>: Password field and Confirm Password field do not match.' ) );
+	}
+	
+    return $errors;
+}
+add_filter( 'registration_errors', 'RJP_register_form_errors', 10, 3 );
+//----
+
+function RJP_auto_login_new_user_after_registration( $user_id ) {
+	
+		wp_set_password( $_POST['password1'], $user_id ); //Password previously checked in add_filter > registration_errors
+	
+
+        wp_set_current_user($user_id);
+        wp_set_auth_cookie($user_id);
+
+		$redirect = "";
+
+		if ($redirect == "") {
+			global $_POST;
+			if ($_POST['redirect_to'] == "") {
+				$redirect = get_home_url();			
+			} else {
+				$redirect = $_POST['redirect_to'];
+			}
+		}
+
+		wp_redirect($redirect);
+
+		wp_new_user_notification($user_id, null, 'both'); //'admin' or blank sends admin notification email only. Anything else will send admin email and user email
+
+		exit;
+}
+add_action( 'user_register', 'RJP_auto_login_new_user_after_registration' );
+
+//Skip logout confermation screen and set destination
+add_action('check_admin_referer', 'logout_without_confirm', 10, 2);
+function logout_without_confirm($action, $result)
+{
+    /**
+     * Allow logout without confirmation
+     */
+    if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
+        $redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url();
+        $location = str_replace('&amp;', '&', wp_logout_url($redirect_to));
+        header("Location: $location");
+        die;
+    }
+}
 
 //PAGEINATION--------------------------------------------------------------
 function pagination($pages = '', $range = 4)

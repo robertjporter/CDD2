@@ -218,6 +218,8 @@ function add_item(item_name){
 	} else if (ingredient_spice.innerHTML == ""){
 		add_item_to_ingredient_slot("ingredient_spice");
 		serve_dish();
+		serve_dish();
+		serve_dish();
 	}
 }
 
